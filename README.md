@@ -9,9 +9,8 @@ Second set pieces (the number of images to download).
 Finally Press Search Button.
 
 SUN will download images as .png extension.
-And save file name code is made similarly under this line.
-#for i in range(pieces):
-#  save(./images/'keyword'_'i'.png)
+And save file name code is made similarly under this line
+# save(./images/'keyword'_'i'.png)
 
 ※ SUN is made with selenium library. 
 So you must have 'chromedriver.exe' precisely matching with your chrome version in ui folder (Please check source code).
