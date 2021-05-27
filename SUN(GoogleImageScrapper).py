@@ -1,13 +1,22 @@
+import sys
 from sys import argv
+from os.path import join, dirname, abspath
+from os import system
 
 # Main Dialog
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
 from os import mkdir
 from selenium import webdriver
 from time import sleep
 
-mainDlg_class = uic.loadUiType("ui/imgScrapper.ui")[0]
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', dirname(abspath(__file__)))
+    return join(base_path, relative_path)
+form = resource_path("..\\envs\\imgScrapper.ui")
+mainDlg_class = uic.loadUiType(form)[0]
+# mainDlg_class = uic.loadUiType("ui/imgScrapper.ui")[0]
 
 class imgScrapper(QMainWindow, mainDlg_class):
     def __init__(self):
@@ -30,7 +39,9 @@ class imgScrapper(QMainWindow, mainDlg_class):
         try:
             search_url = "https://www.google.com/search?q=" + str(search_name) + "&hl=ko&tbm=isch"
 
-            browser = webdriver.Chrome('./ui/chromedriver.exe')
+            if getattr(sys, 'frozen', False):
+                chromedriver_path = join(sys._MEIPASS, "..\\envs\\chromedriver.exe")
+                browser = webdriver.Chrome(chromedriver_path)
             browser.get(search_url)
 
             # image_count = len(browser.find_elements_by_tag_name("img"))
@@ -41,20 +52,29 @@ class imgScrapper(QMainWindow, mainDlg_class):
             self.progressBar.setMaximum(search_limit-1)
 
             for i in range(search_limit):
+                self.progressBar.setValue(i)
+
                 image = browser.find_elements_by_tag_name("img")[i]
                 savename = search_name + '_' + str(i) + ".png"
                 image.screenshot('./images/' + savename)
 
-                self.progressBar.setValue(i)
                 self.loadState = self.loadState + savename + '... saved!\n'
                 self.textEdit_jpgList.setText(self.loadState)
 
             self.loadState = self.loadState + 'Load Complete!'
             self.loadState = ''
-            browser.close()
             sleep(0.1)
+            browser.close()
+
+            reply = QMessageBox.question(self, 'Message', 'Do you need more Data?',
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if reply == QMessageBox.Yes:
+                pass
+            else:
+                sys.exit()
 
         except Exception as e:
+            system('explorer https://chromedriver.chromium.org/downloads')
             pass
 
     def searchBtnFunction(self):
