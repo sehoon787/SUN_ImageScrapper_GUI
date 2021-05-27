@@ -1,4 +1,4 @@
-# SUN (Google Image Scrapper)
+# SUN 1.0v (Google Image Scrapper)
 
 This tool scrap google search engine images by using keyword.
 SUN will help you gather images for DL Data set easily.
