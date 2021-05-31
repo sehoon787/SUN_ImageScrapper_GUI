@@ -16,4 +16,5 @@ And save file name code is made similarly under this line
 ※ SUN is made with selenium library. 
 So you must have 'chromedriver.exe' precisely matching with your chrome version in ui folder (Please check source code).
 
-# pyinstaller --noconsole --add-binary "chromedriver.exe";"." --add-binary "imgScrapper.ui";"." --onefile "SUN(GoogleImageScrapper).py"
+# Make exe
+pyinstaller --noconsole --add-binary "chromedriver.exe";"." --add-binary "imgScrapper.ui";"." --onefile "SUN(GoogleImageScrapper).py"
