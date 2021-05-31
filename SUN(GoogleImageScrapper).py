@@ -1,7 +1,7 @@
+# ChromeDriver 90.0.4430.24
 import sys
 from sys import argv
 from os.path import join, dirname, abspath
-from os import system
 
 # Main Dialog
 from PyQt5 import uic
@@ -14,7 +14,7 @@ def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     base_path = getattr(sys, '_MEIPASS', dirname(abspath(__file__)))
     return join(base_path, relative_path)
-form = resource_path("..\\envs\\imgScrapper.ui")
+form = resource_path("imgScrapper.ui")
 mainDlg_class = uic.loadUiType(form)[0]
 # mainDlg_class = uic.loadUiType("ui/imgScrapper.ui")[0]
 
@@ -40,7 +40,7 @@ class imgScrapper(QMainWindow, mainDlg_class):
             search_url = "https://www.google.com/search?q=" + str(search_name) + "&hl=ko&tbm=isch"
 
             if getattr(sys, 'frozen', False):
-                chromedriver_path = join(sys._MEIPASS, "..\\envs\\chromedriver.exe")
+                chromedriver_path = join(sys._MEIPASS, "chromedriver.exe")
                 browser = webdriver.Chrome(chromedriver_path)
             browser.get(search_url)
 
@@ -74,7 +74,6 @@ class imgScrapper(QMainWindow, mainDlg_class):
                 sys.exit()
 
         except Exception as e:
-            system('explorer https://chromedriver.chromium.org/downloads')
             pass
 
     def searchBtnFunction(self):
