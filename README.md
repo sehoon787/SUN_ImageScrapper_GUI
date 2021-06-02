@@ -18,7 +18,7 @@ SUN is made with selenium library.
 So you must have 'chromedriver.exe' precisely matching with your chrome version in ui folder (Please check source code).
 
 # Make exe
-pyinstaller --noconsole --add-binary "chromedriver.exe";"." --add-binary "imgScrapper.ui";"." --onefile "SUN(GoogleImageScrapper).py"
+pyinstaller --noconsole --add-binary "sun.png";"." --add-binary "chromedriver.exe";"." --add-binary "imgScrapper.ui";"." --onefile --icon=../icons/sun.ico "SUN(GoogleImageScrapper).py"
 
 # icon, png
 icon from https://icon-icons.com/ko/
