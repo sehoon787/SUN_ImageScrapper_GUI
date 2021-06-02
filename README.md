@@ -19,3 +19,6 @@ So you must have 'chromedriver.exe' precisely matching with your chrome version 
 
 # Make exe
 pyinstaller --noconsole --add-binary "chromedriver.exe";"." --add-binary "imgScrapper.ui";"." --onefile "SUN(GoogleImageScrapper).py"
+
+# icon, png
+icon from https://icon-icons.com/ko/
